@@ -4,9 +4,11 @@ footer: Ember London *@arkham*
 
 ---
 
-## A gentle introduction to GraphQL
+## A gentle introduction to *GraphQL*
 
 ---
+
+# Hello!
 
 * I'm Ju 🙇🏻
 * I work for [AlphaSights](engineering.alphasights.com)
@@ -21,6 +23,12 @@ footer: Ember London *@arkham*
 * A **Graph** **Q**uery **L**anguage
 * Invented by Facebook in 2012, now made open
 * Powers most of the Facebook iOS and Android apps
+
+---
+
+# *GraphQL*\*
+
+#### \* Does not actually require a Graph
 
 ---
 
@@ -464,6 +472,10 @@ mutation {
 
 ---
 
+# [fit] GraphQL 💖  ISP
+
+---
+
 # [fit] Hmm, okay.. But can I use it in Ember?
 
 ---
@@ -495,9 +507,64 @@ export default Serializer.extend({});
 
 ---
 
-# Rails
+# Model
 
-[github.com/rmosolgo/graphql-ruby](https://github.com/rmosolgo/graphql-ruby)
+```
+DS.Model.extend({
+  name: DS.attr('string');
+});
+```
+
+---
+
+# Route
+
+```
+model: function() {
+  return this.store.findAll('company')
+}
+```
+
+---
+
+# Query
+
+```
+query {
+  companies {
+    id
+    name
+  }
+}
+```
+
+---
+
+# Result
+
+```
+{
+  "data": {
+    "companies": [
+      { id: "1", name: "AlphaSights" },
+      { id: "2", name: "Heroku" }
+    ]
+  }
+}
+```
+
+---
+
+![](./images/rainbow.jpg)
+
+---
+
+# Features
+
+* Automatic queries generation
+* Field aliasing supported
+* BelongsTo relationships fully supported
+* Async relationships supported
 
 ---
 
@@ -524,6 +591,19 @@ export default Serializer.extend({});
 # Extras
 
 --- 
+
+# Backend
+
+### Node
+
+[github.com/graphql/graphql-js](https://github.com/graphql/graphql-js)
+
+### Rails
+
+[github.com/rmosolgo/graphql-ruby](https://github.com/rmosolgo/graphql-ruby)
+
+---
+
 
 # Field aliases - Query string
 
@@ -557,6 +637,21 @@ export default Serializer.extend({});
 
 # References
 
-* [https://learngraphql.com](https://learngraphql.com)
-* [https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html](https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html)
+* [learngraphql.com](https://learngraphql.com)
+* [facebook.github.io/graphql/](https://facebook.github.io/graphql/)
+* [news.ycombinator.com/item?id=10217887](https://news.ycombinator.com/item?id=10217887)
+* [facebook.github.io/react/blog/2015/05/01/graphql-introduction.html](https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html)
 
+---
+
+# Articles
+
+* [From REST to GraphQL](https://blog.jacobwgillespie.com/from-rest-to-graphql-b4e95e94c26b)
+* [Initial Impressions on GraphQL & Relay](https://kadira.io/blog/graphql/initial-impression-on-relay-and-graphql)
+* [GraphQL Overview - Getting Started with GraphQL and Node](https://blog.risingstack.com/graphql-overview-getting-started-with-graphql-and-nodejs/)
+
+---
+
+# Videos
+
+* [GraphQL at The Financial Times](https://www.youtube.com/watch?v=S0s935RKKB4)
