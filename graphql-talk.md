@@ -11,7 +11,7 @@ footer: Ember London *@arkham*
 # Hello!
 
 * I'm Ju 🙇🏻
-* I work for [AlphaSights](engineering.alphasights.com)
+* I work here in London for [AlphaSights](engineering.alphasights.com)
 * We build ambitious apps in Ruby & Ember
 
 ---
@@ -111,7 +111,7 @@ We have a `users` table like this one
 
 ```
 mutation {
-  createUser(
+  user: createUser(
     name: "Tom",
     twitter: "tomdale",
     country: "USA"
@@ -136,6 +136,45 @@ mutation {
   }
 }
 ```
+
+---
+
+# Error - Query string
+
+```
+mutation {
+  user: createUser(
+    twitter: "tomdale",
+    country: "USA"
+  ) {
+    id,
+    name
+  }
+}
+
+```
+
+---
+
+# Error - JSON response
+
+```
+{
+  "errors": [
+    {
+      "message": "Field 'createUser' argument 'name' of
+        type 'String!' is required but not provided."
+    }
+  ]
+}
+```
+
+---
+
+# Relationships
+## Relationships
+### Relationships
+
 
 ---
 
@@ -200,7 +239,48 @@ And we add a `company_id` to each user
 
 ---
 
-# But why???
+# Nested relationships - Query string
+
+```
+{
+  user(id: 1) {
+    id,
+    name,
+    company {
+      name
+      employees: users {
+        name
+      }
+    }
+  }
+}
+```
+
+---
+
+# Nested relationships - JSON response
+
+```
+{
+  "data": {
+    "user": {
+      "id": "1",
+      "name": "Ju",
+      "company": {
+        "name": "AlphaSights",
+        "employees": [
+          { "name": "Ju" },
+          { "name": "Will" }
+        ]
+      }
+    }
+  }
+}
+```
+
+---
+
+# But *why* should I use it?
 
 ---
 
@@ -219,7 +299,7 @@ And we add a `company_id` to each user
 
 ---
 
-## No REST for the wicked
+## No REST for the wicked!
 
 ---
 
@@ -236,10 +316,6 @@ GET /users/1
 ```
 ???
 ```
-
----
-
-# [fit] What You See Is What You Get
 
 ---
 
@@ -265,12 +341,16 @@ GET /users/1
 
 ---
 
-# [fit] Every GraphQL query is a contract
+# [fit] *W*hat *Y*ou *S*ee *I*s *W*hat *Y*ou *G*et
+
+---
+
+# [fit] Every GraphQL query is a *contract*
 
 ---
 
 # [fit] Every GraphQL query is
-# [fit] a *frontend-driven* contract
+# [fit] a *frontend-driven contract*
 
 ---
 
@@ -309,7 +389,7 @@ GET /users/1
 ---
 
 ```
-POST /users/
+POST /repos/
 
 {
   "name": "Hello-World",
@@ -430,7 +510,7 @@ POST /users/
 
 ```
 mutation {
-  createRepo(
+  repo: createRepo(
     name: "Hello-World",
     description: "This is your first example",
     homepage: "https://example.com",
@@ -476,6 +556,87 @@ mutation {
 
 ---
 
+# [fit] GraphQL queries allow to create
+# [fit] *infinite* client specific interfaces
+
+---
+
+# [fit] But I don't care about ISP!!!
+
+---
+
+# [fit] *ISP* has feelings too...
+
+---
+
+Imagine you have a `/articles` endpoint.
+
+---
+
+Imagine you have a `/articles` endpoint.
+
+In the frontpage you want to display related articles.
+
+---
+
+Imagine you have a `/articles` endpoint.
+
+In the frontpage you want to display related articles.
+
+Easy, right?
+
+---
+
+Imagine you have a `/articles` endpoint.
+
+In the frontpage you want to display related articles.
+
+Easy, right?
+
+So we just add them to the payload.
+
+---
+
+Imagine you have a `/articles` endpoint.
+
+In the frontpage you want to display related articles.
+
+Easy, right?
+
+So we just add them to the payload.
+
+Now **every time** you call the `/articles` payload you have to pay the performance price for something you don't really care about.
+
+---
+
+# [fit] But what if you could do this?
+
+---
+
+```
+{
+  articles {
+    id
+    title
+    excerpt
+    preview_image_url
+    author {
+      name
+    }
+    relatedArticles(limit: 5) {
+      title
+      preview_image_url
+    }
+  }
+}
+```
+
+---
+
+![fit](./images/isp-told-you-so.jpg)
+
+---
+
 # [fit] Hmm, okay.. But can I use it in Ember?
 
 ---
@@ -485,12 +646,22 @@ mutation {
 
 ---
 
+# Features
+
+* Automatic queries generation
+* Field and object aliasing
+* Async relationships
+* BelongsTo relationships
+* HasMany relationships (sort of)
+
+---
+
 # Adapter
 
 ```js
-import GraphQLAdapter from 'ember-graphql-adapter';
+import { Adapter } from 'ember-graphql-adapter';
 
-export default GraphQLAdapter.extend({
+export default Adapter.extend({
   endpoint: `${EmberENV.apiBaseUrl}/graph`
 });
 ```
@@ -559,15 +730,6 @@ query {
 
 ---
 
-# Features
-
-* Automatic queries generation
-* Field aliasing supported
-* BelongsTo relationships fully supported
-* Async relationships supported
-
----
-
 # [fit] Ember Data is amazing
 
 ---
@@ -588,10 +750,6 @@ query {
 
 ---
 
-# Extras
-
---- 
-
 # Backend
 
 ### Node
@@ -604,43 +762,11 @@ query {
 
 ---
 
-
-# Field aliases - Query string
-
-```
-{
-  user(id: 1) {
-    id,
-    name,
-    age_in_years: age
-  }
-}
-```
-
----
-
-# Field aliases - Query string
-
-```
-{
-  "data": {
-    "user": {
-      "id": "1",
-      "name": "Ju",
-      "age_in_years": "29"
-    }
-  }
-}
-```
-
----
-
 # References
 
 * [learngraphql.com](https://learngraphql.com)
 * [facebook.github.io/graphql/](https://facebook.github.io/graphql/)
-* [news.ycombinator.com/item?id=10217887](https://news.ycombinator.com/item?id=10217887)
-* [facebook.github.io/react/blog/2015/05/01/graphql-introduction.html](https://facebook.github.io/react/blog/2015/05/01/graphql-introduction.html)
+* [HN thread](https://news.ycombinator.com/item?id=10217887)
 
 ---
 
@@ -654,4 +780,6 @@ query {
 
 # Videos
 
+* [React.js Conf 2015](https://www.youtube.com/watch?v=9sc8Pyc51uU)
+* [Exploring GraphQL](https://www.youtube.com/watch?v=WQLzZf34FJ8)
 * [GraphQL at The Financial Times](https://www.youtube.com/watch?v=S0s935RKKB4)
