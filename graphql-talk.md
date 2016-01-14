@@ -10,9 +10,9 @@ footer: Ember London *@arkham*
 
 # Hello!
 
-* I'm Ju 🙇🏻
-* I work here in London for [AlphaSights](engineering.alphasights.com)
-* We build ambitious apps in Ruby & Ember
+* My name is Ju 🙇🏻
+* I'm an engineer at [AlphaSights](engineering.alphasights.com)
+* We build ambitious apps in Ember (talk to me!)
 
 ---
 
@@ -323,7 +323,10 @@ GET /users/1
 
 ```
 {
-  user(id: 1) { id, name }
+  user(id: 1) {
+    id,
+    name
+  }
 }
 ```
 
@@ -334,7 +337,10 @@ GET /users/1
 ```
 {
   "data": {
-    "user": { "id": "1", "name": "Ju" }
+    "user": {
+      "id": "1",
+      "name": "Ju"
+    }
   }
 }
 ```
@@ -742,14 +748,6 @@ query {
 
 ---
 
-# Thanks! Questions?
-
-* Ju Liu [@arkham](https://twitter.com/arkh4m)
-* [engineering.alphasights.com](https://engineering.alphasights.com)
-* [github.com/alphasights/ember-graphql-adapter](https://github.com/alphasights/ember-graphql-adapter)
-
----
-
 # Backend
 
 ### Node
@@ -783,3 +781,13 @@ query {
 * [React.js Conf 2015](https://www.youtube.com/watch?v=9sc8Pyc51uU)
 * [Exploring GraphQL](https://www.youtube.com/watch?v=WQLzZf34FJ8)
 * [GraphQL at The Financial Times](https://www.youtube.com/watch?v=S0s935RKKB4)
+
+---
+
+# Thanks! Questions?
+
+Slides @ [bit.ly/ember-graph](http://bit.ly/ember-graph)
+
+* Ju Liu [@arkham](https://twitter.com/arkh4m)
+* [engineering.alphasights.com](https://engineering.alphasights.com)
+* [github.com/alphasights/ember-graphql-adapter](https://github.com/alphasights/ember-graphql-adapter)
